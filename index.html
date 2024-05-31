@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geheimnisvoller Chatroom</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #login {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #000;
+        }
+        input[type="text"], input[type="password"] {
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #chat {
+            display: none;
+            flex-direction: column;
+            width: 80%;
+            height: 80%;
+        }
+        #messages {
+            flex-grow: 1;
+            overflow-y: scroll;
+            background-color: #2a2a2a;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        #new-message {
+            display: flex;
+        }
+        #new-message input[type="text"] {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="login">
+        <h2>Geheimnisvoller Chatroom</h2>
+        <input type="password" id="code" placeholder="Gib den Zugangscode ein">
+        <input type="submit" value="Betreten" onclick="login()">
+    </div>
+    <div id="chat">
+        <div id="messages"></div>
+        <div id="new-message">
+            <input type="text" id="message-input" placeholder="Nachricht eingeben...">
+            <input type="submit" value="Senden" onclick="sendMessage()">
+        </div>
+    </div>
+    <script>
+        const adminCode = "770";
+        let users = {
+            "1234": "Benutzer1",
+            "5678": "Benutzer2",
+            "91011": "Benutzer3"
+        };
+        let currentUser = "";
+
+        function login() {
+            const code = document.getElementById("code").value;
+            if (code === adminCode) {
+                currentUser = "Admin";
+                document.getElementById("login").style.display = "none";
+                document.getElementById("chat").style.display = "flex";
+                alert("Admin-Login erfolgreich!");
+            } else if (users[code]) {
+                currentUser = users[code];
+                document.getElementById("login").style.display = "none";
+                document.getElementById("chat").style.display = "flex";
+                alert(`Willkommen, ${currentUser}!`);
+            } else {
+                alert("Ungültiger Code");
+            }
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById("message-input");
+            const message = messageInput.value;
+            if (message.trim() !== "") {
+                const messagesDiv = document.getElementById("messages");
+                const newMessage = document.createElement("div");
+                newMessage.textContent = `${currentUser}: ${message}`;
+                messagesDiv.appendChild(newMessage);
+                messageInput.value = "";
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>
