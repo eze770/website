@@ -99,19 +99,29 @@
                 alert("Ungültiger Code");
             }
         }
-
         function sendMessage() {
-            const messageInput = document.getElementById("message-input");
-            const message = messageInput.value;
-            if (message.trim() !== "") {
-                const messagesDiv = document.getElementById("messages");
-                const newMessage = document.createElement("div");
-                newMessage.textContent = `${currentUser}: ${message}`;
-                messagesDiv.appendChild(newMessage);
-                messageInput.value = "";
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            }
-        }
+    const messageInput = document.getElementById("message-input");
+    const message = messageInput.value;
+    if (message.trim() !== "") {
+        const messagesDiv = document.getElementById("messages");
+        const newMessage = document.createElement("div");
+        newMessage.textContent = `${currentUser}: ${message}`;
+        messagesDiv.appendChild(newMessage);
+        messageInput.value = "";
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+        // Simulierte Übertragung der Nachricht an alle Benutzer
+        simulateMessageTransfer(message);
+    }
+}
+
+function simulateMessageTransfer(message) {
+    // Hier könntest du die Logik einfügen, um die Nachricht an andere Benutzer zu senden
+    // In dieser vereinfachten Version geben wir die Nachricht einfach in der Konsole aus
+    console.log("Nachricht an alle Benutzer: " + message);
+}
+
+
     </script>
 </body>
 </html>
